@@ -1,0 +1,23 @@
+{
+  "name": "devops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khushpatil/devops.git"
+  },
+  "author": "khush",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khushpatil/devops/issues"
+  },
+  "homepage": "https://github.com/khushpatil/devops#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "node-fetch": "^3.2.0"
+  }
+}
