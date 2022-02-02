@@ -5,7 +5,7 @@ const app = express()
 const PORT = 3000
 
 app.get("/",(req,res) => {
-    const hellomessage = `Hello from the ${os.hostname}`
+    const hellomessage = `VERSION 2: Hello from the ${os.hostname}`
     console.log(hellomessage)
     res.send(hellomessage)
 })
