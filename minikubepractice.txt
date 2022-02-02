@@ -1,0 +1,613 @@
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ minikube start --driver=hyperv                                                                                        ��  minikube v1.25.1 on Microsoft Windows 10 Pro 10.0.19044 Build 19044                                                 ✨  Using the hyperv driver based on user configuration                                                                  ��  Starting control plane node minikube in cluster minikube                                                            ��  Creating hyperv VM (CPUs=2, Memory=2200MB, Disk=20000MB) ...
+❗  This VM is having trouble accessing https://k8s.gcr.io
+💡  To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+🐳  Preparing Kubernetes v1.23.1 on Docker 20.10.12 ...
+    ▪ kubelet.housekeeping-interval=5m
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ alias k="kubectl"
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get nodes
+NAME       STATUS   ROLES                  AGE   VERSION
+minikube   Ready    control-plane,master   38s   v1.23.1
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get deploymetns
+error: the server doesn't have a resource type "deploymetns"
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get deployments
+No resources found in default namespace.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ minikube ip
+172.25.97.107
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ ssh docker@172.25.97.107
+The authenticity of host '172.25.97.107 (172.25.97.107)' can't be established.
+ED25519 key fingerprint is SHA256:98q2f+Ve/315j3Mn4kbgXWGN+t4RH9I4EOHqyeTYgAg.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.25.97.107' (ED25519) to the list of known hosts.
+docker@172.25.97.107's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED              STATUS              PORTS     NAMES
+c21e7c60e7c6   6e38f40d628d           "/storage-provisioner"   About a minute ago   Up About a minute             k8s_storage-provisioner_storage-provisioner_kube-system_cfb3f203-6240-4287-8ac7-ecec9619ceb9_1
+2af17ec252ef   a4ca41631cc7           "/coredns -conf /etc…"   About a minute ago   Up About a minute             k8s_coredns_coredns-64897985d-brz49_kube-system_49f3f1e3-2721-45c1-8b84-1ed3f6faa5a3_0
+12e12d4549ef   b46c42588d51           "/usr/local/bin/kube…"   About a minute ago   Up About a minute             k8s_kube-proxy_kube-proxy-78xkn_kube-system_b56e916e-0a92-4a47-b6be-c331a9fdf012_0
+a6f98c7a2c42   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_coredns-64897985d-brz49_kube-system_49f3f1e3-2721-45c1-8b84-1ed3f6faa5a3_0
+a0212471a598   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_kube-proxy-78xkn_kube-system_b56e916e-0a92-4a47-b6be-c331a9fdf012_0
+49386eabe5fe   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_storage-provisioner_kube-system_cfb3f203-6240-4287-8ac7-ecec9619ceb9_0
+31cb37a0e0f9   71d575efe628           "kube-scheduler --au…"   About a minute ago   Up About a minute             k8s_kube-scheduler_kube-scheduler-minikube_kube-system_b8bdc344ff0000e961009344b94de59c_0
+bab894a194c8   25f8c7f3da61           "etcd --advertise-cl…"   About a minute ago   Up About a minute             k8s_etcd_etcd-minikube_kube-system_2904a42d676278e71ab477a3a65f5e0c_0
+a8239e5523c7   f51846a4fd28           "kube-controller-man…"   About a minute ago   Up About a minute             k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_d3f0dbc1c3a23fddbc9f30b9e08c775e_0
+158035821bc1   b6d7abedde39           "kube-apiserver --ad…"   About a minute ago   Up About a minute             k8s_kube-apiserver_kube-apiserver-minikube_kube-system_5f7177623e7bb53dfa7498512e1ba6b3_0
+627a096ac78d   k8s.gcr.io/pause:3.6   "/pause"                 2 minutes ago        Up About a minute             k8s_POD_kube-scheduler-minikube_kube-system_b8bdc344ff0000e961009344b94de59c_0
+1a8bbabf8a75   k8s.gcr.io/pause:3.6   "/pause"                 2 minutes ago        Up About a minute             k8s_POD_kube-controller-manager-minikube_kube-system_d3f0dbc1c3a23fddbc9f30b9e08c775e_0
+8160d10848b2   k8s.gcr.io/pause:3.6   "/pause"                 2 minutes ago        Up About a minute             k8s_POD_kube-apiserver-minikube_kube-system_5f7177623e7bb53dfa7498512e1ba6b3_0
+4cc865a816e1   k8s.gcr.io/pause:3.6   "/pause"                 2 minutes ago        Up About a minute             k8s_POD_etcd-minikube_kube-system_2904a42d676278e71ab477a3a65f5e0c_0
+$ exit
+logout
+Connection to 172.25.97.107 closed.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k run nginx --image=nginx
+pod/nginx created
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME    READY   STATUS              RESTARTS   AGE   IP       NODE       NOMINATED NODE   READINESS GATES
+nginx   0/1     ContainerCreating   0          8s    <none>   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME    READY   STATUS              RESTARTS   AGE   IP       NODE       NOMINATED NODE   READINESS GATES
+nginx   0/1     ContainerCreating   0          26s   <none>   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME    READY   STATUS              RESTARTS   AGE   IP       NODE       NOMINATED NODE   READINESS GATES
+nginx   0/1     ContainerCreating   0          45s   <none>   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME    READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   0          63s   172.17.0.3   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ ssh docker@172.25.97.107
+docker@172.25.97.107's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ docker ps | grep nginx
+6af79d4534ec   nginx                  "/docker-entrypoint.…"   43 seconds ago       Up 42 seconds                 k8s_nginx_nginx_default_f8b66d56-5ac8-4813-96ec-10db2ecc1703_0
+e522e2bb9ada   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_nginx_default_f8b66d56-5ac8-4813-96ec-10db2ecc1703_0
+$ docker exec -it 6af79d4534ec sh
+# hostname
+nginx
+# hostname -ip
+hostname: invalid option -- 'p'
+Usage: hostname [-b] {hostname|-F file}         set host name (from file)
+       hostname [-a|-A|-d|-f|-i|-I|-s|-y]       display formatted name
+       hostname                                 display host name
+
+       {yp,nis,}domainname {nisdomain|-F file}  set NIS domain name (from file)
+       {yp,nis,}domainname                      display NIS domain name
+
+       dnsdomainname                            display dns domain name
+
+       hostname -V|--version|-h|--help          print info and exit
+
+Program name:
+       {yp,nis,}domainname=hostname -y
+       dnsdomainname=hostname -d
+
+Program options:
+    -a, --alias            alias names
+    -A, --all-fqdns        all long host names (FQDNs)
+    -b, --boot             set default hostname if none available
+    -d, --domain           DNS domain name
+    -f, --fqdn, --long     long host name (FQDN)
+    -F, --file             read host name or NIS domain name from given file
+    -i, --ip-address       addresses for the host name
+    -I, --all-ip-addresses all addresses for the host
+    -s, --short            short host name
+    -y, --yp, --nis        NIS/YP domain name
+
+Description:
+   This command can get or set the host name or the NIS domain name. You can
+   also get the DNS domain or the FQDN (fully qualified domain name).
+   Unless you are using bind or NIS for host lookups you can change the
+   FQDN (Fully Qualified Domain Name) and the DNS domain name (which is
+   part of the FQDN) in the /etc/hosts file.
+# hostname -i
+172.17.0.3
+# curl 172.17.0.3
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+# exit
+$ exit
+logout
+Connection to 172.25.97.107 closed.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get nodes -o wide
+NAME       STATUS   ROLES                  AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE              KERNEL-VERSION   CONTAINER-RUNTIME
+minikube   Ready    control-plane,master   5m22s   v1.23.1   172.25.97.107   <none>        Buildroot 2021.02.4   4.19.202         docker://20.10.12
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          3m18s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME    READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   0          3m28s   172.17.0.3   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k describe pod nginx
+Name:         nginx
+Namespace:    default
+Priority:     0
+Node:         minikube/172.25.97.107
+Start Time:   Wed, 02 Feb 2022 12:11:02 +0530
+Labels:       run=nginx
+Annotations:  <none>
+Status:       Running
+IP:           172.17.0.3
+IPs:
+  IP:  172.17.0.3
+Containers:
+  nginx:
+    Container ID:   docker://6af79d4534ec511ba934a5218aa9db00cf479734a34a7ee8612736573028116d
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 02 Feb 2022 12:11:48 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4h284 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-4h284:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  3m57s  default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    3m57s  kubelet            Pulling image "nginx"
+  Normal  Pulled     3m11s  kubelet            Successfully pulled image "nginx" in 45.44933503s
+  Normal  Created    3m11s  kubelet            Created container nginx
+  Normal  Started    3m11s  kubelet            Started container nginx
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k delete pod nginx
+pod "nginx" deleted
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+No resources found in default namespace.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k create deployment nginx-deployment --image=nginx
+deployment.apps/nginx-deployment created
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   1/1     1            1           8s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-794f656f8b-dfmn7   1/1     Running   0          15s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k describe deployment nginx-deployment
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Wed, 02 Feb 2022 12:16:42 +0530
+Labels:                 app=nginx-deployment
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=nginx-deployment
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx-deployment
+  Containers:
+   nginx:
+    Image:        nginx
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-794f656f8b (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  32s   deployment-controller  Scaled up replica set nginx-deployment-794f656f8b to 1
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k describe pod nginx-deployment-794f656f8b-dfmn7
+Name:         nginx-deployment-794f656f8b-dfmn7
+Namespace:    default
+Priority:     0
+Node:         minikube/172.25.97.107
+Start Time:   Wed, 02 Feb 2022 12:16:42 +0530
+Labels:       app=nginx-deployment
+              pod-template-hash=794f656f8b
+Annotations:  <none>
+Status:       Running
+IP:           172.17.0.3
+IPs:
+  IP:           172.17.0.3
+Controlled By:  ReplicaSet/nginx-deployment-794f656f8b
+Containers:
+  nginx:
+    Container ID:   docker://ad120f9c198cee7538c9b192a40c5654f5ed64c8ce608ec51bbd5e419e111b15
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:2834dc507516af02784808c5f48b7cbe38b8ed5d0f4837f16e78d00deb7e7767
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 02 Feb 2022 12:16:46 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8882g (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-8882g:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  59s   default-scheduler  Successfully assigned default/nginx-deployment-794f656f8b-dfmn7 to minikube
+  Normal  Pulling    59s   kubelet            Pulling image "nginx"
+  Normal  Pulled     55s   kubelet            Successfully pulled image "nginx" in 3.762549859s
+  Normal  Created    55s   kubelet            Created container nginx
+  Normal  Started    55s   kubelet            Started container nginx
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k scale deployment nginx-deployment --replicas=5
+deployment.apps/nginx-deployment scaled
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+nginx-deployment-794f656f8b-4lsdw   0/1     ContainerCreating   0          6s
+nginx-deployment-794f656f8b-4rvp9   1/1     Running             0          6s
+nginx-deployment-794f656f8b-df285   0/1     ContainerCreating   0          6s
+nginx-deployment-794f656f8b-dfmn7   1/1     Running             0          3m34s
+nginx-deployment-794f656f8b-jrbsk   0/1     ContainerCreating   0          6s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get deploy
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   5/5     5            5           3m54s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-794f656f8b-4lsdw   1/1     Running   0          30s
+nginx-deployment-794f656f8b-4rvp9   1/1     Running   0          30s
+nginx-deployment-794f656f8b-df285   1/1     Running   0          30s
+nginx-deployment-794f656f8b-dfmn7   1/1     Running   0          3m58s
+nginx-deployment-794f656f8b-jrbsk   1/1     Running   0          30s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods -o wide
+NAME                                READY   STATUS    RESTARTS   AGE    IP           NODE       NOMINATED NODE   READINESS GATES
+nginx-deployment-794f656f8b-4lsdw   1/1     Running   0          40s    172.17.0.7   minikube   <none>           <none>
+nginx-deployment-794f656f8b-4rvp9   1/1     Running   0          40s    172.17.0.4   minikube   <none>           <none>
+nginx-deployment-794f656f8b-df285   1/1     Running   0          40s    172.17.0.6   minikube   <none>           <none>
+nginx-deployment-794f656f8b-dfmn7   1/1     Running   0          4m8s   172.17.0.3   minikube   <none>           <none>
+nginx-deployment-794f656f8b-jrbsk   1/1     Running   0          40s    172.17.0.5   minikube   <none>           <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ ssh docker@172.25.97.107
+docker@172.25.97.107's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ docker ps | grep nginx
+f318a82b01e3   nginx                  "/docker-entrypoint.…"   59 seconds ago       Up 58 seconds                 k8s_nginx_nginx-deployment-794f656f8b-4lsdw_default_448d65c4-c4d2-4137-bde6-0748e1ef87d6_0
+fa1e7a9651b0   nginx                  "/docker-entrypoint.…"   About a minute ago   Up About a minute             k8s_nginx_nginx-deployment-794f656f8b-df285_default_e6daa186-9138-498b-9ada-705f92759028_0
+f08f064b6bc2   nginx                  "/docker-entrypoint.…"   About a minute ago   Up About a minute             k8s_nginx_nginx-deployment-794f656f8b-jrbsk_default_7631abd1-a225-49f6-a11d-7101fbd9008b_0
+245df83c09a2   nginx                  "/docker-entrypoint.…"   About a minute ago   Up About a minute             k8s_nginx_nginx-deployment-794f656f8b-4rvp9_default_fba612fa-a2a2-4626-b652-e2e9eaeb0d88_0
+0d9dc5ebf146   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_nginx-deployment-794f656f8b-4lsdw_default_448d65c4-c4d2-4137-bde6-0748e1ef87d6_0
+21d1b61f711f   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_nginx-deployment-794f656f8b-df285_default_e6daa186-9138-498b-9ada-705f92759028_0
+1b9dcbd55a1d   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_nginx-deployment-794f656f8b-jrbsk_default_7631abd1-a225-49f6-a11d-7101fbd9008b_0
+9b2617be572a   k8s.gcr.io/pause:3.6   "/pause"                 About a minute ago   Up About a minute             k8s_POD_nginx-deployment-794f656f8b-4rvp9_default_fba612fa-a2a2-4626-b652-e2e9eaeb0d88_0
+ad120f9c198c   nginx                  "/docker-entrypoint.…"   4 minutes ago        Up 4 minutes                  k8s_nginx_nginx-deployment-794f656f8b-dfmn7_default_42a7427a-ec14-4c0f-93fa-3729eb31b55f_0
+31ebc3721e5d   k8s.gcr.io/pause:3.6   "/pause"                 4 minutes ago        Up 4 minutes                  k8s_POD_nginx-deployment-794f656f8b-dfmn7_default_42a7427a-ec14-4c0f-93fa-3729eb31b55f_0
+$ docker exec -it f08f064b6bc2 sh
+# hostname
+nginx-deployment-794f656f8b-jrbsk
+# hostname -i
+172.17.0.5
+# curl 172.17.0.5
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+# exit
+$ exit
+logout
+Connection to 172.25.97.107 closed.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k expose deployment nginx-deployment --port=8080 --target=80
+error: unknown flag: --target
+See 'kubectl expose --help' for usage.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k expose deployment nginx-deployment --port=8080 --target-port=80
+service/nginx-deployment exposed
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get svc
+NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP    16m
+nginx-deployment   ClusterIP   10.110.186.176   <none>        8080/TCP   8s
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k describe service nginx-deployment
+Name:              nginx-deployment
+Namespace:         default
+Labels:            app=nginx-deployment
+Annotations:       <none>
+Selector:          app=nginx-deployment
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.110.186.176
+IPs:               10.110.186.176
+Port:              <unset>  8080/TCP
+TargetPort:        80/TCP
+Endpoints:         172.17.0.3:80,172.17.0.4:80,172.17.0.5:80 + 2 more...
+Session Affinity:  None
+Events:            <none>
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ curl 10.110.186.176:8080
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ ssh docker@172.25.97.107
+docker@172.25.97.107's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ curl 10.110.186.176:8080
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+$ docker ps | grep nginx
+f318a82b01e3   nginx                  "/docker-entrypoint.…"   8 minutes ago    Up 8 minutes              k8s_nginx_nginx-deployment-794f656f8b-4lsdw_default_448d65c4-c4d2-4137-bde6-0748e1ef87d6_0
+fa1e7a9651b0   nginx                  "/docker-entrypoint.…"   8 minutes ago    Up 8 minutes              k8s_nginx_nginx-deployment-794f656f8b-df285_default_e6daa186-9138-498b-9ada-705f92759028_0
+f08f064b6bc2   nginx                  "/docker-entrypoint.…"   8 minutes ago    Up 8 minutes              k8s_nginx_nginx-deployment-794f656f8b-jrbsk_default_7631abd1-a225-49f6-a11d-7101fbd9008b_0
+245df83c09a2   nginx                  "/docker-entrypoint.…"   8 minutes ago    Up 8 minutes              k8s_nginx_nginx-deployment-794f656f8b-4rvp9_default_fba612fa-a2a2-4626-b652-e2e9eaeb0d88_0
+0d9dc5ebf146   k8s.gcr.io/pause:3.6   "/pause"                 8 minutes ago    Up 8 minutes              k8s_POD_nginx-deployment-794f656f8b-4lsdw_default_448d65c4-c4d2-4137-bde6-0748e1ef87d6_0
+21d1b61f711f   k8s.gcr.io/pause:3.6   "/pause"                 8 minutes ago    Up 8 minutes              k8s_POD_nginx-deployment-794f656f8b-df285_default_e6daa186-9138-498b-9ada-705f92759028_0
+1b9dcbd55a1d   k8s.gcr.io/pause:3.6   "/pause"                 8 minutes ago    Up 8 minutes              k8s_POD_nginx-deployment-794f656f8b-jrbsk_default_7631abd1-a225-49f6-a11d-7101fbd9008b_0
+9b2617be572a   k8s.gcr.io/pause:3.6   "/pause"                 8 minutes ago    Up 8 minutes              k8s_POD_nginx-deployment-794f656f8b-4rvp9_default_fba612fa-a2a2-4626-b652-e2e9eaeb0d88_0
+ad120f9c198c   nginx                  "/docker-entrypoint.…"   11 minutes ago   Up 11 minutes             k8s_nginx_nginx-deployment-794f656f8b-dfmn7_default_42a7427a-ec14-4c0f-93fa-3729eb31b55f_0
+31ebc3721e5d   k8s.gcr.io/pause:3.6   "/pause"                 11 minutes ago   Up 11 minutes             k8s_POD_nginx-deployment-794f656f8b-dfmn7_default_42a7427a-ec14-4c0f-93fa-3729eb31b55f_0
+$ docker exec -it ad120f9c198c sh
+# hostname
+nginx-deployment-794f656f8b-dfmn7
+# hostname -i
+172.17.0.3
+# curl 172.17.0.3
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+# exit
+$ exit
+logout
+Connection to 172.25.97.107 closed.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k delete service nginx-deployment
+service "nginx-deployment" deleted
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k delete deployment nginx-deployment
+deployment.apps "nginx-deployment" deleted
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+No resources found in default namespace.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get deploy
+No resources found in default namespace.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21m
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ minikube pause
+⏸️  Pausing node minikube ...
+⏯️  Paused 14 containers in: kube-system, kubernetes-dashboard, storage-gluster, istio-operator
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ minikube unpause
+⏸️  Unpausing node minikube ...
+⏸️  Unpaused 14 containers in: kube-system, kubernetes-dashboard, storage-gluster, istio-operator
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get nodes
+NAME       STATUS   ROLES                  AGE   VERSION
+minikube   Ready    control-plane,master   24m   v1.23.1
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$ k get pods
+No resources found in default namespace.
+
+khush@LAPTOP-JTRCVL35 MINGW64 /
+$
